@@ -37,37 +37,24 @@ class SupervisedLayer:
 
     def forward(self, x_0: np.ndarray, y_0: np.ndarray, num_cycles: int = 1) -> tuple:
         """
-        정보 순환 과정을 수행하고 학습에 필요한 변수들을 반환합니다 (Fig. 6b).
-        UL과 달리 x_0(특성)와 y_0(타겟)를 모두 입력으로 받습니다.
-
-        Args:
-            x_0 (np.ndarray): 초기 입력 특성 패턴 (h_l).
-            y_0 (np.ndarray): 초기 타겟 패턴 (o).
-            num_cycles (int): 내부 순환 횟수 (c).
-
-        Returns:
-            Tuple[np.ndarray, ...]: 학습에 필요한 (x_0, y_0, x_c, y_c) 튜플.
+        정보 순환 과정을 수행 (논문 그림 6b).
+        x_0와 y_0를 동시에 입력받아 x_c와 y_c를 생성합니다.
         """
-        # SL에서는 첫 순환부터 x와 y가 서로에게 영향을 줌
-        x_current = x_0
-        y_current = y_0
-        
-        for _ in range(num_cycles):
-            # Eq. (2a): a[c] = W * x[c]
-            a_c = self.W @ x_current.T
-            y_next = self.transmission_function(a_c).T
+        x_current, y_current = x_0, y_0
 
-            # Eq. (2b): b[c] = V * y[c]
+        for _ in range(num_cycles):
+            # 1. x[c] 계산: y_current가 V_SL을 통과하여 x_next를 만듦
             b_c = self.V @ y_current.T
             x_next = self.transmission_function(b_c).T
             
+            # 2. y[c] 계산: x_current가 W_SL을 통과하여 y_next를 만듦
+            a_c = self.W @ x_current.T
+            y_next = self.transmission_function(a_c).T
+
+            # 다음 순환을 위해 값 업데이트 (동시에 업데이트 되는 것을 모방)
             x_current, y_current = x_next, y_next
-
-        # c번 순환 후 최종 재구성된 값들
-        x_c = x_current
-        y_c = y_current
-
-        return x_0, y_0, x_c, y_c
+            
+        return x_0, y_0, x_current, y_current # 최종 x_c, y_c 반환
     
     def predict(self, features: np.ndarray, num_cycles: int = 1) -> np.ndarray:
         """
