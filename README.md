@@ -4,10 +4,10 @@
 
 이 프로젝트는 "A multilayered bidirectional associative memory model for learning nonlinear tasks" (Rolon-Mérette et al., 2023) 논문에서 제안된 **MF-BAM (Multi-Feature extraction Bidirectional Associative Memory)** 모델을 NumPy 기반으로 가볍게 구현한 것입니다.
 
-PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수 Python과 NumPy만으로 구현하여 **IoT 장치나 저사양 환경으로의 이식성**을 염두에 두고 설계되었습니다.
+PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수 Python과 NumPy만으로 구현하여 **저사양 환경으로의 이식성**을 염두에 두고 설계되었습니다.
 
 
-*Moons 데이터셋에 대한 학습 후 결정 경계 및 역방향 복원 결과 (실행 후 생성된 이미지로 교체하세요)*
+*Moons 데이터셋에 대한 학습 후 결정 경계 및 역방향 복원 결과
 
 ## ✨ 주요 특징
 
