@@ -47,6 +47,14 @@ class UnsupervisedLayer:
         self.W += learning_rate * delta_W
         self.V += learning_rate * delta_V
 
+    def predict(self, x_in: np.ndarray) -> np.ndarray:
+        """
+        (추론용) 입력을 받아 순방향으로 한 번만 통과시켜 출력을 생성합니다.
+        """
+        a = self.W @ x_in.T
+        y_out = self.transmission_function(a).T
+        return y_out
+
 class FeatureExtractor:
     """ NumPy 기반으로 구현된 Multi-Feature extraction (MF) 모듈. """
     def __init__(self, layer_dims: list[int], delta: float = 0.2):

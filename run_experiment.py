@@ -13,7 +13,7 @@ from bam_compressor.training.trainer import Trainer
 # ============================================
 MF_LAYER_DIMS = [2, 16, 32]  # Moons(2) -> UL1(16) -> UL2(32)
 TARGET_DIM = 1
-LEARNING_RATE = 0.01
+LEARNING_RATE = 1e-4  # 학습률
 MF_EPOCHS = 100
 SL_EPOCHS = 200
 BATCH_SIZE = 16

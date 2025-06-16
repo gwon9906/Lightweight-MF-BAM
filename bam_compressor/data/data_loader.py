@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 
 class NumpyDataLoader:
     """
@@ -21,35 +22,44 @@ class NumpyDataLoader:
         self.batch_size = batch_size
         self.shuffle = shuffle
         
-        # 1. 데이터 로드 및 분할
-        self._load_data()
+        # 1. 데이터를 먼저 로드하고 self.X, self.y를 생성합니다.
+        self._load_and_preprocess_data()
+        
+        # 2. 생성된 self.X, self.y를 사용하여 데이터를 분할합니다.
         self._split_data(test_size, random_state)
         
-        # 내부 상태 변수 초기화
         self._current_index = 0
 
-    def _load_data(self):
-        """ CSV 파일을 읽어와 피처(X)와 타겟(y)으로 분리합니다. """
+    def _load_and_preprocess_data(self):
+        """ CSV 파일을 읽고, 모든 데이터를 피처(X)로 사용하며, 스케일링을 수행합니다. """
         try:
             df = pd.read_csv(self.filepath)
         except FileNotFoundError:
             raise FileNotFoundError(f"데이터 파일을 찾을 수 없습니다: {self.filepath}\n"
-                                    f"'scripts/generate_datasets.py'를 먼저 실행하여 데이터셋을 생성해주세요.")
+                                    f"솔루션: 'scripts/preprocess_lora_log.py'를 먼저 실행하여 데이터를 정제해주세요.")
         
-        # 마지막 열을 타겟(y), 나머지 열을 피처(X)로 가정
-        self.X = df.iloc[:, :-1].values
-        self.y = df.iloc[:, -1].values.reshape(-1, 1)
+        # 모든 열을 피처(X)로 사용
+        self.feature_names = df.columns.tolist() # 나중에 시각화를 위해 컬럼 이름 저장
+        raw_data = df.values
         
-        print(f"데이터 로드 완료. 총 샘플: {len(self.X)}, 피처 수: {self.X.shape[1]}")
+        # Min-Max Scaler를 생성하고 학습(fit)
+        self.scaler = MinMaxScaler(feature_range=(-1, 1))
+        # 스케일링된 데이터를 self.X에 할당
+        self.X = self.scaler.fit_transform(raw_data)
+        
+        # 오토인코더의 타겟(y)은 입력(X)과 동일합니다.
+        self.y = self.X.copy()
+        
+        print(f"데이터 로드 및 스케일링 완료. 총 샘플: {len(self.X)}, 피처 수: {self.X.shape[1]}")
+
 
     def _split_data(self, test_size: float, random_state: int):
         """ 데이터를 학습용과 테스트용으로 분리합니다. """
-        if test_size > 0:
+        if test_size > 0 and len(self.X) > 1:
             self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-                self.X, self.y, test_size=test_size, random_state=random_state, stratify=(self.y if len(np.unique(self.y)) > 1 else None)
+                self.X, self.y, test_size=test_size, random_state=random_state
             )
         else:
-            # test_size가 0이면 전체 데이터를 학습용으로 사용
             self.X_train, self.y_train = self.X, self.y
             self.X_test, self.y_test = np.array([]), np.array([])
             
@@ -58,7 +68,6 @@ class NumpyDataLoader:
         
         print(f"학습 데이터: {len(self.X_train)} 개, 테스트 데이터: {len(self.X_test)} 개")
         print(f"배치 크기: {self.batch_size}, 총 배치 수: {self.n_batches}")
-
     def __iter__(self):
         """ 반복자(iterator)를 초기화합니다. 에폭 시작 시 호출됩니다. """
         self._current_index = 0
@@ -89,6 +98,11 @@ class NumpyDataLoader:
     def get_test_data(self):
         """ 테스트 데이터셋 전체를 반환합니다. """
         return self.X_test, self.y_test
+    
+    # 디코딩된 결과를 원래 값의 범위로 되돌리기 위한 메서드
+    def inverse_transform(self, scaled_data: np.ndarray) -> np.ndarray:
+        """ 스케일링된 데이터를 원래의 값 범위로 복원합니다. """
+        return self.scaler.inverse_transform(scaled_data)
 
 # --- 사용 예시 ---
 if __name__ == '__main__':
