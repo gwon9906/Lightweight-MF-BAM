@@ -111,7 +111,3 @@ BAM_COMPRESSOR/
 ## 📜 참고 문헌
 
 > Rolon-Mérette, D., Rolon-Mérette, T., & Chartier, S. (2023). A multilayered bidirectional associative memory model for learning nonlinear tasks. *Neural Networks, 167*, 244-265.
-
-## 📄 라이선스
-
-이 프로젝트는 [MIT 라이선스](LICENSE)를 따릅니다.
