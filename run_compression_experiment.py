@@ -24,13 +24,13 @@ WEIGHTS_PATH = 'data/compression_weights'
 # -- 모델 아키텍처 설정 --
 INPUT_DIM = 12
 LATENT_DIM = 8
-MF_LAYER_DIMS = [INPUT_DIM, 10, 8] # 기존 구조 유지
+MF_LAYER_DIMS = [INPUT_DIM, 16, 14] # 기존 구조 유지
 
 #-- 학습 하이퍼파라미터 --
 LEARNING_RATE = 4e-5  # 학습률
-MAX_EPOCHS_PER_LAYER = 5000 # 레이어당 최대 학습 에폭
+MAX_EPOCHS_PER_LAYER = 15000 # 레이어당 최대 학습 에폭
 CONVERGENCE_THRESHOLD = 1e-7 # 이 값보다 Loss 개선이 적으면 수렴으로 간주
-PATIENCE = 50 # 개선 없이 50 에폭을 기다림
+PATIENCE = 100 # 개선 없이 100 에폭을 기다림
 BATCH_SIZE = 32  # 배치 크기
 
 # 실제 데이터 컬럼 이름 (그래프 레이블용)

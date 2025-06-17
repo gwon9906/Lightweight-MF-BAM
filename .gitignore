@@ -3,3 +3,8 @@ __pycache__/
 *.csv
 *.log
 .DS_Store/
+*.npz
+data/compression_weights/mf_layer_0_weights.npz
+data/compression_weights/mf_layer_1_weights.npz
+data/compression_weights/mf_layer_2_weights.npz
+data/compression_weights/sl_weights.npz

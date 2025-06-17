@@ -79,8 +79,18 @@ def preprocess_all_logs(input_dir: str, output_filepath: str):
     if df_features.empty:
         print("오류: 모든 데이터를 정제한 후 남은 데이터가 없습니다.")
         return
+    
+    # 6. 위도/경도 피처에서 정수부 제거 (소수부만 남김)
+    print("위도/경도 피처에서 정수부를 제거하여 상대적 위치 변화에 집중합니다.")
+    df_features['decoded_gps_lat'] = df_features['decoded_gps_lat'] - df_features['decoded_gps_lat'].astype(int)
+    df_features['decoded_gps_lon'] = df_features['decoded_gps_lon'] - df_features['decoded_gps_lon'].astype(int)
+    # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    
+    if df_features.empty:
+        print("오류: 모든 데이터를 정제한 후 남은 데이터가 없습니다.")
+        return
 
-    # 6. 정제된 데이터 저장
+    # 7. 정제된 데이터 저장 (기존 6번 단계)
     output_dir = os.path.dirname(output_filepath)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -91,7 +101,6 @@ def preprocess_all_logs(input_dir: str, output_filepath: str):
     print(f"✅ 최종 데이터 정제 완료!")
     print(f"   최종 학습 데이터 샘플 수: {len(df_features)}")
     print(f"   저장 경로: '{output_filepath}'")
-
 
 if __name__ == '__main__':
     # 원본 로그 파일들이 있는 디렉토리
