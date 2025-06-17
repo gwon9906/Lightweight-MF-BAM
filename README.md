@@ -7,7 +7,10 @@
 PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수 Python과 NumPy만으로 구현하여 **저사양 환경으로의 이식성**을 염두에 두고 설계되었습니다.
 
 
-*Moons 데이터셋에 대한 학습 후 결정 경계 및 역방향 복원 결과
+*실제 통신 데이터에 대한 압축 -> 복원 결과
+![mf-bam](https://github.com/user-attachments/assets/796362f7-0a21-48e4-80d3-2db3a0ebab51)
+
+
 
 ## ✨ 주요 특징
 
