@@ -53,7 +53,32 @@ PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수
 ### ✨ 인사이트
 - **평균 MSE 0.0036** 으로, 전체적으로 우수한 복원 성능을 유지하고 있습니다.    
 - 가속도 및 GPS 위치 값은 거의 완벽하게 복원되어, **위치·가속 정보 전송 신뢰도**가 높음을 확인했습니다.
-  
+
+🧪 실험 환경 및 방법 (Test Environment & Methodology)
+본 프로젝트는 이론적 모델의 성능을 실제 환경에서 검증하는 것을 목표로 했습니다. 단순한 시뮬레이션을 넘어, 현실적인 LLN(Low-power and Lossy Networks) 환경에서의 실효성을 증명하고자 했습니다.
+
+하드웨어 구성 (Testbed Setup)
+송신 노드 (Tx Node): Raspberry Pi Zero W + MPU-6050 (IMU) + GPS Module + E22-900T22S (LoRa)
+수신 노드 (Rx Node): Raspberry Pi Zero W + E22-900T22S (LoRa)
+<br>
+<p align="center">
+<img src="./images/로라기기.jpg" width="400" alt="Testbed Hardware">
+<br>
+<em>실제 필드 테스트에 사용된 송/수신 노드 하드웨어</em>
+</p>
+<br>
+테스트 환경 (Field Test Environment)
+모델의 성능을 엄밀하게 평가하기 위해, 의도적으로 신호 간섭과 감쇠가 심한 N-LOS (Non-Line-of-Sight) 환경을 구축했습니다. 약 2km 거리의 건물과 지형지물로 가시권이 확보되지 않는 지점(부산 동서대학교 6호관 인근)에서 한 달간 수백 회의 반복 테스트를 통해 데이터를 수집 및 분석했습니다.
+
+<br>
+<p align="center">
+<img src="./images/필드테스트.jpg" width="400" alt="Field Test">
+<br>
+<em>N-LOS 환경에서의 실제 필드 테스트 모습</em>
+</p>
+<br>
+
+
 ## ✨ 주요 특징
 
 - **🧠 인지과학 기반 아키텍처**: 인간의 뇌가 정보를 처리하는 방식에 영감을 받은 2단계 모듈(비지도 특성 추출 + 지도 연관 학습) 구조를 가집니다.
