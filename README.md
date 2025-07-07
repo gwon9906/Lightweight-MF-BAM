@@ -6,6 +6,10 @@
 
 PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수 Python과 NumPy만으로 구현하여 **저사양 환경으로의 이식성**을 염두에 두고 설계되었습니다.
 
+실제 적용된 프로젝트(LoRa e22 모듈 LLNs 환경에서의 실험)
+https://github.com/4xvgal/ChirpChirp
+> **더 자세한 실험 과정과 데이터 분석 내용은 [최종 보고서](./docs/LoRa_통신개선_프로젝트_최종보고서.pdf)에서 확인하실 수 있습니다.**
+
 
 *실제 통신 데이터에 대한 압축 -> 복원 결과
 ![Final bset](https://github.com/user-attachments/assets/4cc89d83-8910-4856-9a12-08cc1973a969)
