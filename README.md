@@ -54,10 +54,10 @@ PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수
 - **평균 MSE 0.0036** 으로, 전체적으로 우수한 복원 성능을 유지하고 있습니다.    
 - 가속도 및 GPS 위치 값은 거의 완벽하게 복원되어, **위치·가속 정보 전송 신뢰도**가 높음을 확인했습니다.
 
-🧪 실험 환경 및 방법 (Test Environment & Methodology)
-본 프로젝트는 이론적 모델의 성능을 실제 환경에서 검증하는 것을 목표로 했습니다. 단순한 시뮬레이션을 넘어, 현실적인 LLN(Low-power and Lossy Networks) 환경에서의 실효성을 증명하고자 했습니다.
+### 🧪 실험 환경 및 방법 (Test Environment & Methodology)
+- 본 프로젝트는 이론적 모델의 성능을 실제 환경에서 검증하는 것을 목표로 했습니다. 단순한 시뮬레이션을 넘어, 현실적인 LLN(Low-power and Lossy Networks) 환경에서의 실효성을 증명하고자 했습니다.
 
-하드웨어 구성 (Testbed Setup)
+- 하드웨어 구성 (Testbed Setup)
 송신 노드 (Tx Node): Raspberry Pi Zero W + MPU-6050 (IMU) + GPS Module + E22-900T22S (LoRa)
 수신 노드 (Rx Node): Raspberry Pi Zero W + E22-900T22S (LoRa)
 <br>
