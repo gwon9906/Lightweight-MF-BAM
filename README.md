@@ -8,7 +8,30 @@ PyTorch, TensorFlow와 같은 무거운 딥러닝 프레임워크 없이, 순수
 
 실제 적용된 프로젝트(LoRa e22 모듈 LLNs 환경에서의 실험)
 https://github.com/4xvgal/ChirpChirp
-> **더 자세한 실험 과정과 데이터 분석 내용은 [최종 보고서](./docs/LoRa_통신개선_프로젝트_최종보고서.pdf)에서 확인하실 수 있습니다.**
+> **더 자세한 실험 과정과 데이터 분석 내용은 에서 확인하실 수 있습니다.**
+
+
+## 🌟 주요 응용 사례: LoRa 통신 성능 개선 프로젝트
+
+이 MF-BAM 모델은 **불안정한 저전력 통신 환경(LLN)에서 데이터 전송률을 높이는 프로젝트**에 성공적으로 적용되었습니다. 경량 압축기로서의 성능은 아래와 같습니다.
+(압축률: 32B -> 20B 62.5%)
+| 구분 | 값 | 비고 |
+|---|---|---|
+| **복원 오차 (MSE)** | **0.003619** | 원본 정보 손실 최소화 |
+| **압축 비율** | **1.5 : 1** | 12 피처 → 8 잠재 벡터 |
+
+<br>
+<p align="center">
+  <br>
+</p>
+
+> **➡️ [LoRa 통신 개선 프로젝트 전체 내용 보기 (GitHub: 4xvgal/ChirpChirp)](https://github.com/4xvgal/ChirpChirp)**
+> 
+> **➡️ [LoRa_통신개선_프로젝트_최종보고서.pdf](https://github.com/user-attachments/files/21096150/LoRa_._._.pdf)**  <!-- "https://..." 부분을 님의 PDF 파일 링크 URL로 교체하세요 -->
+> <br>
+> (실제 필드 테스트 사진, 하드웨어 구성 등은 위 GitHub 링크 또는 보고서에서 확인하실 수 있습니다.)
+
+---
 
 
 *실제 통신 데이터에 대한 압축 -> 복원 결과
@@ -57,30 +80,6 @@ https://github.com/4xvgal/ChirpChirp
 ### ✨ 인사이트
 - **평균 MSE 0.0036** 으로, 전체적으로 우수한 복원 성능을 유지하고 있습니다.    
 - 가속도 및 GPS 위치 값은 거의 완벽하게 복원되어, **위치·가속 정보 전송 신뢰도**가 높음을 확인했습니다.
-
-### 🧪 실험 환경 및 방법 (Test Environment & Methodology)
-- 본 프로젝트는 이론적 모델의 성능을 실제 환경에서 검증하는 것을 목표로 했습니다. 단순한 시뮬레이션을 넘어, 현실적인 LLN(Low-power and Lossy Networks) 환경에서의 실효성을 증명하고자 했습니다.
-
-- 하드웨어 구성 (Testbed Setup)
-송신 노드 (Tx Node): Raspberry Pi Zero W + MPU-6050 (IMU) + GPS Module + E22-900T22S (LoRa)
-수신 노드 (Rx Node): Raspberry Pi Zero W + E22-900T22S (LoRa)
-<br>
-<p align="center">
-<img src="./images/로라기기.jpg" width="400" alt="Testbed Hardware">
-<br>
-<em>실제 필드 테스트에 사용된 송/수신 노드 하드웨어</em>
-</p>
-<br>
-테스트 환경 (Field Test Environment)
-모델의 성능을 엄밀하게 평가하기 위해, 의도적으로 신호 간섭과 감쇠가 심한 N-LOS (Non-Line-of-Sight) 환경을 구축했습니다. 약 2km 거리의 건물과 지형지물로 가시권이 확보되지 않는 지점(부산 동서대학교 6호관 인근)에서 한 달간 수백 회의 반복 테스트를 통해 데이터를 수집 및 분석했습니다.
-
-<br>
-<p align="center">
-<img src="./images/필드테스트.jpg" width="400" alt="Field Test">
-<br>
-<em>N-LOS 환경에서의 실제 필드 테스트 모습</em>
-</p>
-<br>
 
 
 ## ✨ 주요 특징
